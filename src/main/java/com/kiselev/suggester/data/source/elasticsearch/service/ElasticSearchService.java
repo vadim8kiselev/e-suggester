@@ -34,7 +34,7 @@ public class ElasticSearchService implements ElasticSearch {
                 BulkRequest bulkRequest = new BulkRequest();
 
                 for (Profile profile : list) {
-                    IndexRequest indexRequest = new IndexRequest("profiles", "doc", profile.getId())
+                    IndexRequest indexRequest = new IndexRequest("profiles", "doc", String.valueOf(profile.getId()))
                             .source(XContentFactory.jsonBuilder()
                                     .startObject()
                                     .field("profile_id", profile.getId())

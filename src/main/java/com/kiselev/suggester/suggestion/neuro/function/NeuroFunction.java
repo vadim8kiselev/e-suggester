@@ -1,4 +1,4 @@
-package com.kiselev.suggester.neuro.function;
+package com.kiselev.suggester.suggestion.neuro.function;
 
 public interface NeuroFunction<Entity> {
 

@@ -2,6 +2,7 @@ package com.kiselev.suggester.view.rest.endpoint;
 
 import com.kiselev.suggester.data.model.entity.Product;
 import com.kiselev.suggester.data.model.entity.Profile;
+import com.kiselev.suggester.data.source.db.dao.DAO;
 import com.kiselev.suggester.service.suggestion.SuggestionService;
 import com.kiselev.suggester.service.discoverer.ProfileDiscoverer;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,15 +19,19 @@ public class SuggestionEndpoint {
     @Autowired
     private SuggestionService suggestionService;
 
-    @GetMapping("vk/id")
-    public List<Product> suggestFromVKById(@RequestParam("id") String id) {
-        Profile profile = profileDiscoverer.discover(id);
+    @Autowired
+    private DAO dao;
+
+    @GetMapping("social/network")
+    public List<Product> socialNetwork(@RequestParam("link") String link) {
+        Profile profile = profileDiscoverer.discover(link);
+        dao.profile(profile);
         return suggestionService.suggest(profile);
     }
 
-    @GetMapping("vk/link")
-    public List<Product> suggestFromVkByLink(@RequestParam("link") String link) {
-        Profile profile = profileDiscoverer.discover(link);
+    @GetMapping("database")
+    public List<Product> database(@RequestParam("id") String id) {
+        Profile profile = dao.profile(id);
         return suggestionService.suggest(profile);
     }
 }

@@ -62,15 +62,15 @@ public class VKEntityConverter implements EntityConverter<UserFull> {
                         ? externalUser.getRelationPartner().getFirstName() + " " + externalUser.getRelationPartner().getLastName()
                         : "")
 
-                .interests(nonNull(externalUser.getInterests()))
-                .music(nonNull(externalUser.getMusic()))
-                .activities(nonNull(externalUser.getActivities()))
-                .movies(nonNull(externalUser.getMovies()))
-                .tv(nonNull(externalUser.getTv()))
-                .books(nonNull(externalUser.getBooks()))
-                .games(nonNull(externalUser.getGames()))
-                .about(nonNull(externalUser.getAbout()))
-                .quotes(nonNull(externalUser.getQuotes()))
+                .interests(simplify(clean(lower(nonNull(externalUser.getInterests()))))) // DONE HERE
+                .music(simplify(lower(nonNull(externalUser.getMusic()))))
+                .activities(simplify(lower(nonNull(externalUser.getActivities()))))
+                .movies(simplify(lower(nonNull(externalUser.getMovies()))))
+                .tv(simplify(lower(nonNull(externalUser.getTv()))))
+                .books(simplify(lower(nonNull(externalUser.getBooks()))))
+                .games(simplify(lower(nonNull(externalUser.getGames()))))
+                .about(simplify(lower(nonNull(externalUser.getAbout()))))
+                .quotes(simplify(lower(nonNull(externalUser.getQuotes()))))
 
                 .political(externalUser.getPersonal() != null ? VKPropertyMapper.getPoliticalViews(nonNull(externalUser.getPersonal().getPolitical())) : "")
                 .languages(externalUser.getPersonal() != null ? listToString(nonNull(externalUser.getPersonal().getLangs())) : "")
@@ -81,7 +81,7 @@ public class VKEntityConverter implements EntityConverter<UserFull> {
                 .smoking(externalUser.getPersonal() != null ? VKPropertyMapper.getSmokingAndAlcohol(nonNull(externalUser.getPersonal().getSmoking())) : "")
                 .alcohol(externalUser.getPersonal() != null ? VKPropertyMapper.getSmokingAndAlcohol(nonNull(externalUser.getPersonal().getAlcohol())) : "")
 
-                .deactivated(nonNull(externalUser.getDeactivated()))
+                .deactivated(lower(nonNull(externalUser.getDeactivated())))
                 .build();
     }
 
@@ -106,6 +106,18 @@ public class VKEntityConverter implements EntityConverter<UserFull> {
 
     private String nonNull(Enum enumObject) {
         return enumObject != null ? enumObject.name() : "";
+    }
+
+    private String lower(String data) {
+        return data != null ? data.toLowerCase() : "";
+    }
+
+    private String simplify(String data) {
+        return data != null ? data.replaceAll("\\s{2,}", " ") : "";
+    }
+
+    private String clean(String data) {
+        return data != null ? data.replaceAll("[^a-zA-Zа-яА-Я]", " ") : "";
     }
 
     private <ExternalPojo> String listToString(List<ExternalPojo> data) {
