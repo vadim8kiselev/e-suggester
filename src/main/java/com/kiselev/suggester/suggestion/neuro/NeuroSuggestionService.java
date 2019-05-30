@@ -1,20 +1,20 @@
-package com.kiselev.suggester.service.suggestion;
+package com.kiselev.suggester.suggestion.neuro;
 
 import com.kiselev.suggester.data.model.entity.Product;
 import com.kiselev.suggester.data.model.entity.Profile;
 import com.kiselev.suggester.suggestion.Suggester;
+import com.kiselev.suggester.suggestion.neuro.implementation.NeuroSuggester;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 
 import java.util.List;
 
-@Component
-public class SuggestionService {
+public class NeuroSuggestionService implements Suggester {
 
     @Autowired
-    private Suggester suggester;
+    private NeuroSuggester neuroSuggester;
 
+    @Override
     public List<Product> suggest(Profile profile) {
-        return suggester.suggest(profile);
+        return neuroSuggester.suggest(profile);
     }
 }

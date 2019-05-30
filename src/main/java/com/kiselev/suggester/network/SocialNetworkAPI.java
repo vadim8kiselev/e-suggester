@@ -1,5 +1,7 @@
 package com.kiselev.suggester.network;
 
+import com.kiselev.suggester.data.model.entity.Group;
+import com.kiselev.suggester.data.model.entity.Product;
 import com.kiselev.suggester.data.model.entity.Profile;
 
 import java.util.List;
@@ -10,9 +12,7 @@ public interface SocialNetworkAPI {
 
     List<Profile> getProfilesByProfilesIds(List<String> profilesIds);
 
-    List<Profile> getFriendsByProfileId(String profileId);
+    List<Group> getGroupsByUserId(String userId);
 
-    List<Profile> getFollowersByProfileId(String profileId);
-
-    List<Profile> getSubscriptionsByProfileId(String profileId);
+    List<Product> getMarketProductsByGroupId(Integer groupId);
 }

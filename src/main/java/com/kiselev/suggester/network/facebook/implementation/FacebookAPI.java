@@ -1,5 +1,7 @@
 package com.kiselev.suggester.network.facebook.implementation;
 
+import com.kiselev.suggester.data.model.entity.Group;
+import com.kiselev.suggester.data.model.entity.Product;
 import com.kiselev.suggester.data.model.entity.Profile;
 import com.kiselev.suggester.network.SocialNetworkAPI;
 
@@ -18,17 +20,12 @@ public class FacebookAPI implements SocialNetworkAPI {
     }
 
     @Override
-    public List<Profile> getFriendsByProfileId(String profileId) {
+    public List<Group> getGroupsByUserId(String userId) {
         throw new UnsupportedOperationException("Facebook API is not implemented yet.");
     }
 
     @Override
-    public List<Profile> getFollowersByProfileId(String profileId) {
-        throw new UnsupportedOperationException("Facebook API is not implemented yet.");
-    }
-
-    @Override
-    public List<Profile> getSubscriptionsByProfileId(String profileId) {
+    public List<Product> getMarketProductsByGroupId(Integer groupId) {
         throw new UnsupportedOperationException("Facebook API is not implemented yet.");
     }
 }

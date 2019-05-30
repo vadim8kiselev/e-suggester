@@ -4,8 +4,11 @@ import com.kiselev.suggester.data.model.entity.Product;
 import com.kiselev.suggester.data.model.entity.Profile;
 
 import java.util.List;
+import java.util.Set;
 
 public interface DAO {
+
+    /* Profiles*/
 
     void profile(Profile profile);
 
@@ -15,11 +18,15 @@ public interface DAO {
 
     List<Profile> profiles();
 
+    /* Products */
+
     void product(Product product);
 
-    void products(List<Product> products);
+    void products(Set<Product> products);
 
     Product product(String id);
 
     List<Product> products();
+
+    List<Product> products(String type);
 }

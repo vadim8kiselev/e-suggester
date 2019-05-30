@@ -1,11 +1,14 @@
 package com.kiselev.suggester.network.vk.implementation;
 
 import com.google.gson.Gson;
+import com.kiselev.suggester.data.model.entity.Group;
+import com.kiselev.suggester.data.model.entity.Product;
 import com.kiselev.suggester.data.model.entity.Profile;
 import com.kiselev.suggester.network.SocialNetworkAPI;
 import com.kiselev.suggester.network.vk.annotation.Doc;
 import com.kiselev.suggester.network.vk.configuration.VKAPIConfiguration;
 import com.kiselev.suggester.network.vk.implementation.internal.VKAPIInternal;
+import com.vk.api.sdk.client.HackVKApiClient;
 import com.vk.api.sdk.client.VkApiClient;
 import com.vk.api.sdk.client.actors.UserActor;
 import com.vk.api.sdk.exceptions.ApiException;
@@ -27,6 +30,7 @@ public class VKAPI implements SocialNetworkAPI {
 
     @PostConstruct
     public void auth() {
+        HackVKApiClient vkHack = new HackVKApiClient();
         VkApiClient vk = new VkApiClient(HttpTransportClient.getInstance(), new Gson(), Integer.MAX_VALUE);
         UserActor user;
 
@@ -38,7 +42,7 @@ public class VKAPI implements SocialNetworkAPI {
                 String accessToken = configuration.getToken();
                 user = new UserActor(userId, accessToken);
             } else {
-                UserAuthResponse authResponse = vk.oauth()
+                UserAuthResponse authResponse = vk.oAuth()
                         .userAuthorizationCodeFlow(configuration.getClientId(),
                                 configuration.getClientSecret(),
                                 configuration.getRedirectUri(),
@@ -52,7 +56,7 @@ public class VKAPI implements SocialNetworkAPI {
                 System.out.println("\n\nAccess token: " + accessToken + "\n\n");
             }
 
-            api.auth(vk, user);
+            api.auth(vkHack, vk, user);
         } catch (ApiException | ClientException exception) {
             exception.printStackTrace();
             System.exit(1);
@@ -74,7 +78,7 @@ public class VKAPI implements SocialNetworkAPI {
         return api.getProfilesByProfilesIds(profilesIds);
     }
 
-    @Override
+    /*@Override
     @Doc(method = "friends.get", maxCount = "5000")
     public List<Profile> getFriendsByProfileId(String profileId) {
         return api.getFriendsByProfileId(profileId);
@@ -90,5 +94,17 @@ public class VKAPI implements SocialNetworkAPI {
     @Doc(method = "users.getSubscriptions", maxCount = "200")
     public List<Profile> getSubscriptionsByProfileId(String profileId) {
         return api.getSubscriptionsByProfileId(profileId);
+    }*/
+
+    @Override
+    @Doc(method = "groups.get", maxCount = "1000")
+    public List<Group> getGroupsByUserId(String userId) {
+        return api.getGroupsByUserId(userId);
+    }
+
+    @Override
+    @Doc(method = "market.get", maxCount = "200")
+    public List<Product> getMarketProductsByGroupId(Integer groupId) {
+        return api.getMarketProductsByGroupId(groupId);
     }
 }

@@ -1,8 +1,13 @@
 package com.kiselev.suggester.data.model.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.google.common.collect.Sets;
+import com.kiselev.suggester.data.model.entity.annotation.Listed;
+import com.kiselev.suggester.data.model.entity.annotation.Unique;
 import lombok.*;
 
 import javax.persistence.*;
+import java.util.Set;
 
 @Entity
 @Getter
@@ -11,9 +16,12 @@ import javax.persistence.*;
 @AllArgsConstructor
 @Table(name = "profiles")
 @EqualsAndHashCode(callSuper = false, of = {"id"})
+@ToString(exclude = "products")
+@JsonIgnoreProperties(value = {"products"})
 public class Profile {
 
     @Id
+    @Unique
     @Column(name = "profile_id")
     private String id;
 
@@ -22,9 +30,6 @@ public class Profile {
 
     @Column(name = "last_name")
     private String lastName;
-
-    @Column(name = "screen_name")
-    private String screenName;
 
     @Column(name = "sex")
     private String sex;
@@ -41,90 +46,61 @@ public class Profile {
     @Column(name = "country")
     private String country;
 
+    @Unique
     @Column(name = "mobile_phone", columnDefinition = "TEXT")
     private String mobilePhone;
 
+    @Unique
     @Column(name = "home_phone", columnDefinition = "TEXT")
     private String homePhone;
-
-
-    @Column(name = "skype", columnDefinition = "TEXT")
-    private String skype;
-
-    @Column(name = "facebook", columnDefinition = "TEXT")
-    private String facebook;
-
-    @Column(name = "twitter", columnDefinition = "TEXT")
-    private String twitter;
-
-    @Column(name = "livejournal", columnDefinition = "TEXT")
-    private String livejournal;
-
-    @Column(name = "instagram", columnDefinition = "TEXT")
-    private String instagram;
 
 
     @Column(name = "status", columnDefinition = "TEXT")
     private String status;
 
-    @Column(name = "last_seen", columnDefinition = "TEXT")
-    private String lastSeen;
-
-
-    @Column(name = "career", columnDefinition = "TEXT")
-    private String career;
-
-    @Column(name = "military", columnDefinition = "TEXT")
-    private String military;
-
-    @Column(name = "university", columnDefinition = "TEXT")
-    private String university;
-
     @Column(name = "home_town", columnDefinition = "TEXT")
     private String homeTown;
 
-
+    @Unique
     @Column(name = "photo_link", columnDefinition = "TEXT")
     private String photoLink;
-
 
     @Column(name = "relation", columnDefinition = "TEXT")
     private String relation;
 
-    @Column(name = "relation_partner", columnDefinition = "TEXT")
-    private String relationPartner;
-
-
+    @Listed
     @Column(name = "interests", columnDefinition = "TEXT")
     private String interests;
 
+    @Listed
     @Column(name = "music", columnDefinition = "TEXT")
     private String music;
 
+    @Listed
     @Column(name = "activities", columnDefinition = "TEXT")
     private String activities;
 
+    @Listed
     @Column(name = "movies", columnDefinition = "TEXT")
     private String movies;
 
+    @Listed
     @Column(name = "tv", columnDefinition = "TEXT")
     private String tv;
 
+    @Listed
     @Column(name = "books", columnDefinition = "TEXT")
     private String books;
 
+    @Listed
     @Column(name = "games", columnDefinition = "TEXT")
     private String games;
-
-    @Column(name = "schools", columnDefinition = "TEXT")
-    private String schools;
 
     @Column(name = "about", columnDefinition = "TEXT")
     private String about;
 
     @Column(name = "quotes", columnDefinition = "TEXT")
     private String quotes;
-
 
     @Column(name = "political", columnDefinition = "TEXT")
     private String political;
@@ -150,7 +126,16 @@ public class Profile {
     @Column(name = "alcohol", columnDefinition = "TEXT")
     private String alcohol;
 
+    @Column(name = "closed")
+    private Boolean closed;
 
-    @Column(name = "deactivated", columnDefinition = "TEXT")
-    private String deactivated;
+    @Column(name = "deactivated")
+    private Boolean deactivated;
+
+    @Setter
+    @ManyToMany(cascade = CascadeType.ALL)
+    @JoinTable(name = "profile_product",
+            joinColumns = @JoinColumn(name = "profile_id"),
+            inverseJoinColumns = @JoinColumn(name = "product_id"))
+    private Set<Product> products = Sets.newHashSet();
 }
