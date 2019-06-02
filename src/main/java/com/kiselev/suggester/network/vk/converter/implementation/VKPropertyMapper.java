@@ -1,89 +1,231 @@
 package com.kiselev.suggester.network.vk.converter.implementation;
 
-import com.google.common.collect.Maps;
-
-import java.util.Map;
-
 public class VKPropertyMapper {
 
-    private static final Map<String, String> smokingAndAlcohol = Maps.newHashMap();
-    private static final Map<String, String> politicalViews = Maps.newHashMap();
-    private static final Map<String, String> importantInOthers = Maps.newHashMap();
-    private static final Map<String, String> personalPriority = Maps.newHashMap();
-    private static final Map<String, String> relation = Maps.newHashMap();
+    private enum SmokingAndAlcohol {
+        VERY_NEGATIVE(1, "Very negative"),
+        NEGATIVE(2, "Negative"),
+        COMPROMISABLE(3, "Compromisable"),
+        NEUTRAL(4, "Neutral"),
+        POSITIVE(5, "Positive");
 
-    static {
-        smokingAndAlcohol.put("1", "Very negative");
-        smokingAndAlcohol.put("2", "Negative");
-        smokingAndAlcohol.put("3", "Compromisable");
-        smokingAndAlcohol.put("4", "Neutral");
-        smokingAndAlcohol.put("5", "Positive");
-        smokingAndAlcohol.put("", "");
+        private Integer code;
+
+        private String title;
+
+        SmokingAndAlcohol(Integer code, String title) {
+            this.code = code;
+            this.title = title;
+        }
+        
+        public static String byCode(Integer code) {
+            for (SmokingAndAlcohol record : values()) {
+                if (record.code.equals(code)) {
+                    return record.title;
+                }
+            }
+            return "";
+        }
+
+        public static Integer byTitle(String title) {
+            for (SmokingAndAlcohol record : values()) {
+                if (record.title.equals(title)) {
+                    return record.code;
+                }
+            }
+            return 0;
+        }
     }
 
-    static {
-        politicalViews.put("1", "Communist");
-        politicalViews.put("2", "Socialist");
-        politicalViews.put("3", "Moderate");
-        politicalViews.put("4", "Liberal");
-        politicalViews.put("5", "Conservative");
-        politicalViews.put("6", "Monarchist");
-        politicalViews.put("7", "Ultraconservative");
-        politicalViews.put("8", "Apathetic");
-        politicalViews.put("9", "Libertarian");
-        politicalViews.put("", "");
+    private enum PoliticalViews {
+        COMMUNIST(1, "Communist"),
+        SOCIALIST(2, "Socialist"),
+        MODERATE(3, "Moderate"),
+        LIBERAL(4, "Liberal"),
+        CONSERVATIVE(5, "Conservative"),
+        MONARCHIST(6, "Monarchist"),
+        ULTRACONSERVATIVE(7, "Ultraconservative"),
+        APATHETIC(8, "Apathetic"),
+        LIBERTARIAN(9, "Libertarian");
+
+        private Integer code;
+
+        private String title;
+
+        PoliticalViews(Integer code, String title) {
+            this.code = code;
+            this.title = title;
+        }
+
+        public static String byCode(Integer code) {
+            for (PoliticalViews record : values()) {
+                if (record.code.equals(code)) {
+                    return record.title;
+                }
+            }
+            return "";
+        }
+
+        public static Integer byTitle(String title) {
+            for (PoliticalViews record : values()) {
+                if (record.title.equals(title)) {
+                    return record.code;
+                }
+            }
+            return 0;
+        }
     }
 
-    static {
-        importantInOthers.put("1", "Intellect and creativity");
-        importantInOthers.put("2", "Kindness and honesty");
-        importantInOthers.put("3", "Health and beauty");
-        importantInOthers.put("4", "Wealth and power");
-        importantInOthers.put("5", "Courage and persistence");
-        importantInOthers.put("6", "Humor and love for life");
-        importantInOthers.put("", "");
+    private enum ImportantInOthers {
+        INTELLECT(1, "Intellect and creativity"),
+        KINDNESS(2, "Kindness and honesty"),
+        HEALTH(3, "Health and beauty"),
+        WEALTH(4, "Wealth and power"),
+        COURAGE(5, "Courage and persistence"),
+        HUMOR(6, "Humor and love for life");
+
+        private Integer code;
+
+        private String title;
+
+        ImportantInOthers(Integer code, String title) {
+            this.code = code;
+            this.title = title;
+        }
+
+        public static String byCode(Integer code) {
+            for (ImportantInOthers record : values()) {
+                if (record.code.equals(code)) {
+                    return record.title;
+                }
+            }
+            return "";
+        }
+
+        public static Integer byTitle(String title) {
+            for (ImportantInOthers record : values()) {
+                if (record.title.equals(title)) {
+                    return record.code;
+                }
+            }
+            return 0;
+        }
     }
 
-    static {
-        personalPriority.put("1", "Family and children");
-        personalPriority.put("2", "Career and money");
-        personalPriority.put("3", "Entertainment and leisure");
-        personalPriority.put("4", "Science and research");
-        personalPriority.put("5", "Improving the world");
-        personalPriority.put("6", "Personal development");
-        personalPriority.put("7", "Beauty and art");
-        personalPriority.put("8", "Fame and influence");
-        personalPriority.put("", "");
+    private enum PersonalPriority {
+        Family(1, "Family and children"),
+        Career(2, "Career and money"),
+        Entertainment(3, "Entertainment and leisure"),
+        Science(4, "Science and research"),
+        Improving(5, "Improving the world"),
+        Personal(6, "Personal development"),
+        Beauty(7, "Beauty and art"),
+        Fame(8, "Fame and influence");
+
+        private Integer code;
+
+        private String title;
+
+        PersonalPriority(Integer code, String title) {
+            this.code = code;
+            this.title = title;
+        }
+
+        public static String byCode(Integer code) {
+            for (PersonalPriority record : values()) {
+                if (record.code.equals(code)) {
+                    return record.title;
+                }
+            }
+            return "";
+        }
+
+        public static Integer byTitle(String title) {
+            for (PersonalPriority record : values()) {
+                if (record.title.equals(title)) {
+                    return record.code;
+                }
+            }
+            return 0;
+        }
     }
 
-    static {
-        relation.put("1", "Single");
-        relation.put("2", "In a relationship");
-        relation.put("3", "Engaged");
-        relation.put("4", "Married");
-        relation.put("5", "It's complicated");
-        relation.put("6", "Actively searching");
-        relation.put("7", "In love");
-        relation.put("", "");
+    private enum Relation {
+        Single(1, "Single"),
+        relationship(2, "In a relationship"),
+        Engaged(3, "Engaged"),
+        Married(4, "Married"),
+        complicated(5, "It's complicated"),
+        Actively(6, "Actively searching"),
+        love(7, "In love");
+
+        private Integer code;
+
+        private String title;
+
+        Relation(Integer code, String title) {
+            this.code = code;
+            this.title = title;
+        }
+
+        public static String byCode(Integer code) {
+            for (Relation record : values()) {
+                if (record.code.equals(code)) {
+                    return record.title;
+                }
+            }
+            return "";
+        }
+
+        public static Integer byTitle(String title) {
+            for (Relation record : values()) {
+                if (record.title.equals(title)) {
+                    return record.code;
+                }
+            }
+            return 0;
+        }
     }
 
-    public static String getSmokingAndAlcohol(String key) {
-        return smokingAndAlcohol.get(key);
+    public static String getSmokingAndAlcohol(Integer code) {
+        return SmokingAndAlcohol.byCode(code);
     }
 
-    public static String getPoliticalViews(String key) {
-        return politicalViews.get(key);
+    public static String getPoliticalViews(Integer code) {
+        return PoliticalViews.byCode(code);
     }
 
-    public static String getImportantInOthers(String key) {
-        return importantInOthers.get(key);
+    public static String getImportantInOthers(Integer code) {
+        return ImportantInOthers.byCode(code);
     }
 
-    public static String getPersonalPriority(String key) {
-        return personalPriority.get(key);
+    public static String getPersonalPriority(Integer code) {
+        return PersonalPriority.byCode(code);
     }
 
-    public static String getRelation(String key) {
-        return relation.get(key) != null ? relation.get(key) : "";
+    public static String getRelation(Integer code) {
+        return Relation.byCode(code);
+    }
+
+
+
+    public static Integer getSmokingAndAlcohol(String title) {
+        return SmokingAndAlcohol.byTitle(title);
+    }
+
+    public static Integer getPoliticalViews(String title) {
+        return PoliticalViews.byTitle(title);
+    }
+
+    public static Integer getImportantInOthers(String title) {
+        return ImportantInOthers.byTitle(title);
+    }
+
+    public static Integer getPersonalPriority(String title) {
+        return PersonalPriority.byTitle(title);
+    }
+
+    public static Integer getRelation(String title) {
+        return Relation.byTitle(title);
     }
 }

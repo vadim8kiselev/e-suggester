@@ -1,12 +1,11 @@
 package com.kiselev.suggester.suggestion;
 
-import com.kiselev.suggester.suggestion.collaboration.configuration.CollaborationConfiguration;
-import com.kiselev.suggester.suggestion.content.configuration.ContentBasedConfiguration;
-import com.kiselev.suggester.suggestion.neuro.configuration.NeuroConfiguration;
+import com.kiselev.suggester.suggestion.neuro.NeuroSuggestionConfiguration;
+import com.kiselev.suggester.suggestion.standard.StandardSuggestionConfiguration;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
 
 @Configuration
-@Import({CollaborationConfiguration.class, ContentBasedConfiguration.class, NeuroConfiguration.class})
+@Import({StandardSuggestionConfiguration.class, NeuroSuggestionConfiguration.class})
 public class SuggesterConfiguration {
 }
