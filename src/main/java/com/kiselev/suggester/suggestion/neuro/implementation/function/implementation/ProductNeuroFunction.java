@@ -12,6 +12,6 @@ public class ProductNeuroFunction implements NeuroFunction<Product> {
     }
 
     private String productToCategory(Product product) {
-        return String.valueOf(Section.byTitle(product.getSection()));
+        return String.valueOf(Section.byTitle(product.getSection()) - 1);
     }
 }
