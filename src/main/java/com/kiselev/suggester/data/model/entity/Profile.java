@@ -2,6 +2,7 @@ package com.kiselev.suggester.data.model.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.google.common.collect.Sets;
+import com.kiselev.suggester.data.model.entity.annotation.Important;
 import com.kiselev.suggester.data.model.entity.annotation.Listed;
 import com.kiselev.suggester.data.model.entity.annotation.Unique;
 import lombok.*;
@@ -31,18 +32,22 @@ public class Profile {
     @Column(name = "last_name")
     private String lastName;
 
+    @Important
     @Column(name = "sex")
     private String sex;
 
     @Column(name = "online")
     private String online;
 
+    @Important
     @Column(name = "birthday")
     private String birthday;
 
+    @Important
     @Column(name = "city")
     private String city;
 
+    @Important
     @Column(name = "country")
     private String country;
 
@@ -65,6 +70,7 @@ public class Profile {
     @Column(name = "photo_link", columnDefinition = "TEXT")
     private String photoLink;
 
+    @Important
     @Column(name = "relation", columnDefinition = "TEXT")
     private String relation;
 
@@ -102,6 +108,7 @@ public class Profile {
     @Column(name = "quotes", columnDefinition = "TEXT")
     private String quotes;
 
+    @Important
     @Column(name = "political", columnDefinition = "TEXT")
     private String political;
 
@@ -114,15 +121,19 @@ public class Profile {
     @Column(name = "inspired_by", columnDefinition = "TEXT")
     private String inspiredBy;
 
+    @Important
     @Column(name = "people_main", columnDefinition = "TEXT")
     private String peopleMain;
 
+    @Important
     @Column(name = "lifeMain", columnDefinition = "TEXT")
     private String lifeMain;
 
+    @Important
     @Column(name = "smoking", columnDefinition = "TEXT")
     private String smoking;
 
+    @Important
     @Column(name = "alcohol", columnDefinition = "TEXT")
     private String alcohol;
 

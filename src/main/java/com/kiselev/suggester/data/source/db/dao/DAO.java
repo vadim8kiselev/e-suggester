@@ -28,5 +28,5 @@ public interface DAO {
 
     List<Product> products();
 
-    List<Product> products(String type);
+    List<Product> productsBySection(String section);
 }

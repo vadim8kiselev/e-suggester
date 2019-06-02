@@ -5,6 +5,7 @@ import com.google.common.collect.Sets;
 import com.kiselev.suggester.data.model.entity.Group;
 import com.kiselev.suggester.data.model.entity.Product;
 import com.kiselev.suggester.data.model.entity.Profile;
+import com.kiselev.suggester.data.model.entity.enums.Sex;
 import com.kiselev.suggester.network.vk.converter.EntityConverter;
 import com.vk.api.sdk.objects.base.BoolInt;
 import com.vk.api.sdk.objects.groups.ContactsItem;
@@ -28,7 +29,7 @@ public class VKEntityConverter implements EntityConverter<VKUserCounters, GroupF
                 .id(externalUser.getId().toString())
                 .firstName(externalUser.getFirstName())
                 .lastName(externalUser.getLastName())
-                .sex(nonNull(externalUser.getSex()))
+                .sex(Sex.byCode(Integer.parseInt(externalUser.getSex().getValue())))
                 .birthday(dateToString(nonNull(externalUser.getBdate())))
                 .online(String.valueOf(externalUser.isOnline() || externalUser.isOnlineMobile()))
                 .photoLink(nonNull(externalUser.getPhotoMaxOrig()))
@@ -42,7 +43,6 @@ public class VKEntityConverter implements EntityConverter<VKUserCounters, GroupF
 
                 .status(nonNull(externalUser.getStatus()))
 
-                .relation(VKPropertyMapper.getRelation(nonNull(externalUser.getRelation())))
 
                 .interests(simplify(clean(lower(nonNull(externalUser.getInterests()))))) // DONE HERE
                 .music(simplify(clean(lower(nonNull(externalUser.getMusic())))))
@@ -54,14 +54,18 @@ public class VKEntityConverter implements EntityConverter<VKUserCounters, GroupF
                 .about(simplify(clean(lower(nonNull(externalUser.getAbout())))))
                 .quotes(simplify(clean(lower(nonNull(externalUser.getQuotes())))))
 
-                .political(externalUser.getPersonal() != null ? VKPropertyMapper.getPoliticalViews(nonNull(externalUser.getPersonal().getPolitical())) : "")
                 .languages(externalUser.getPersonal() != null ? listToString(nonNull(externalUser.getPersonal().getLangs())) : "")
                 .religion(externalUser.getPersonal() != null ? nonNull(externalUser.getPersonal().getReligion()) : "")
                 .inspiredBy(externalUser.getPersonal() != null ? nonNull(externalUser.getPersonal().getInspiredBy()) : "")
-                .peopleMain(externalUser.getPersonal() != null ? VKPropertyMapper.getImportantInOthers(nonNull(externalUser.getPersonal().getPeopleMain())) : "")
-                .lifeMain(externalUser.getPersonal() != null ? VKPropertyMapper.getPersonalPriority(nonNull(externalUser.getPersonal().getLifeMain())) : "")
-                .smoking(externalUser.getPersonal() != null ? VKPropertyMapper.getSmokingAndAlcohol(nonNull(externalUser.getPersonal().getSmoking())) : "")
-                .alcohol(externalUser.getPersonal() != null ? VKPropertyMapper.getSmokingAndAlcohol(nonNull(externalUser.getPersonal().getAlcohol())) : "")
+
+
+
+                .relation(externalUser.getRelation() != null ? VKPropertyMapper.getRelation(externalUser.getRelation()) : "")
+                .political(externalUser.getPersonal() != null ? VKPropertyMapper.getPoliticalViews(externalUser.getPersonal().getPolitical()) : "")
+                .peopleMain(externalUser.getPersonal() != null ? VKPropertyMapper.getImportantInOthers(externalUser.getPersonal().getPeopleMain()) : "")
+                .lifeMain(externalUser.getPersonal() != null ? VKPropertyMapper.getPersonalPriority(externalUser.getPersonal().getLifeMain()) : "")
+                .smoking(externalUser.getPersonal() != null ? VKPropertyMapper.getSmokingAndAlcohol(externalUser.getPersonal().getSmoking()) : "")
+                .alcohol(externalUser.getPersonal() != null ? VKPropertyMapper.getSmokingAndAlcohol(externalUser.getPersonal().getAlcohol()) : "")
 
                 .closed(Boolean.valueOf(externalUser.isClosed()))
                 .deactivated(externalUser.getDeactivated() != null)
@@ -120,13 +124,13 @@ public class VKEntityConverter implements EntityConverter<VKUserCounters, GroupF
         return Product.builder()
                 .id(marketItem.getOwnerId() + "#" + marketItem.getId())
                 .name(marketItem.getTitle())
-                .type(marketItem.getCategory().getName())
+                .category(marketItem.getCategory().getName())
+                .section(marketItem.getCategory().getSection().getName())
                 .price(toNumber(marketItem.getPrice().getAmount()))
                 .availability(marketItem.getAvailability() == MarketItemAvailability.AVAILABLE)
                 .views(marketItem.getViewsCount())
                 .popularity(marketItem.getLikes().getCount())
                 .photo(nonNull(marketItem.getThumbPhoto()))
-                .url(nonNull(marketItem.getUrl()))
                 .build();
     }
 

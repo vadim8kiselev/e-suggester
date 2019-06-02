@@ -6,9 +6,9 @@ import com.kiselev.suggester.data.model.entity.Profile;
 import com.kiselev.suggester.data.model.entity.annotation.Ranged;
 import com.kiselev.suggester.data.model.entity.annotation.Unique;
 import com.kiselev.suggester.data.source.db.dao.DAO;
-import org.nd4j.linalg.io.ReflectionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.util.ReflectionUtils;
 
 import java.lang.reflect.Field;
 import java.util.Comparator;

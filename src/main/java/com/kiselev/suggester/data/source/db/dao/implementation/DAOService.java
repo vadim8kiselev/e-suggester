@@ -68,7 +68,7 @@ public class DAOService implements DAO {
     }
 
     @Override
-    public List<Product> products(String type) {
-        return productRepository.findByType(type);
+    public List<Product> productsBySection(String section) {
+        return Lists.newArrayList(productRepository.findBySection(section));
     }
 }

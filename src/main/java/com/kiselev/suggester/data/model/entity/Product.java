@@ -28,8 +28,11 @@ public class Product {
     @Column(name = "name")
     private String name;
 
-    @Column(name = "type")
-    private String type;
+    @Column(name = "category")
+    private String category;
+
+    @Column(name = "section")
+    private String section;
 
     @Ranged(5000)
     @Column(name = "price")
@@ -49,10 +52,6 @@ public class Product {
     @Unique
     @Column(name = "photo")
     private String photo;
-
-    @Unique
-    @Column(name = "url")
-    private String url;
 
     @Unique
     @Setter

@@ -19,7 +19,7 @@ public class DataService {
     @Autowired
     private DAO dao;
 
-    public List<Product> retrieveRandomRecommendaton() {
+    public List<Product> retrieveRandomRecommendation() {
         List<Product> products = dao.products();
         Collections.shuffle(products);
 

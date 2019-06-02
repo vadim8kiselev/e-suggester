@@ -78,24 +78,6 @@ public class VKAPI implements SocialNetworkAPI {
         return api.getProfilesByProfilesIds(profilesIds);
     }
 
-    /*@Override
-    @Doc(method = "friends.get", maxCount = "5000")
-    public List<Profile> getFriendsByProfileId(String profileId) {
-        return api.getFriendsByProfileId(profileId);
-    }
-
-    @Override
-    @Doc(method = "users.getFollowers", maxCount = "1000")
-    public List<Profile> getFollowersByProfileId(String profileId) {
-        return api.getFollowersByProfileId(profileId);
-    }
-
-    @Override
-    @Doc(method = "users.getSubscriptions", maxCount = "200")
-    public List<Profile> getSubscriptionsByProfileId(String profileId) {
-        return api.getSubscriptionsByProfileId(profileId);
-    }*/
-
     @Override
     @Doc(method = "groups.get", maxCount = "1000")
     public List<Group> getGroupsByUserId(String userId) {

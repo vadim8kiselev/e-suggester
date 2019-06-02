@@ -1,6 +1,5 @@
 package com.kiselev.suggester.network.vk.exception;
 
-import com.google.gson.JsonSyntaxException;
 import com.kiselev.suggester.network.vk.utils.VKUtils;
 import com.vk.api.sdk.exceptions.ApiAuthException;
 import com.vk.api.sdk.exceptions.ApiParamUserIdException;
@@ -14,9 +13,6 @@ public class ExceptionHandler {
     private static final Logger LOGGER = LoggerFactory.getLogger(ExceptionHandler.class);
 
     public static void rethrowException(Throwable throwable) {
-        if (throwable instanceof JsonSyntaxException) {
-            return;
-        }
         //throw new RuntimeException(throwable);
     }
 

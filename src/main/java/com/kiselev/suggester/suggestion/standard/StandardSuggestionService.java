@@ -34,7 +34,7 @@ public class StandardSuggestionService implements Suggester {
             }
         } else {
             System.out.println("   [Failure]    suggestion process did not start for inactive profile");
-            return dataService.retrieveRandomRecommendaton();
+            return dataService.retrieveRandomRecommendation();
         }
     }
 }
