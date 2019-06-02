@@ -1,0 +1,9 @@
+numpy
+scipy
+keras==2.1.3
+matplotlib
+protobuf==3.6.0
+pandas
+psycopg2
+flask
+connexion
