@@ -3,8 +3,8 @@ package com.kiselev.suggester.data.model.entity.enums;
 public enum Sex {
 
     UNKNOWN(0, "UNKNOWN"),
-    MALE(1, "MALE"),
-    FEMALE(2, "FEMALE");
+    FEMALE(1, "FEMALE"),
+    MALE(2, "MALE");
 
     private Integer code;
 
