@@ -3,6 +3,7 @@ package com.kiselev.suggester.data.source.elasticsearch.service;
 import com.google.common.collect.Lists;
 import com.kiselev.suggester.data.model.entity.Profile;
 import com.kiselev.suggester.data.source.elasticsearch.ElasticSearch;
+import com.kiselev.suggester.suggestion.neuro.implementation.function.implementation.ProfileNeuroFunction;
 import org.elasticsearch.action.bulk.BulkRequest;
 import org.elasticsearch.action.index.IndexRequest;
 import org.elasticsearch.client.RestHighLevelClient;
@@ -43,6 +44,7 @@ public class ElasticSearchService implements ElasticSearch {
                                     .field("profile_sex", profile.getSex())
                                     .field("profile_online", profile.getOnline())
                                     .field("profile_birthday", profile.getBirthday())
+                                    .field("profile_age", String.valueOf(ProfileNeuroFunction.toAge(ProfileNeuroFunction.toDate(profile.getBirthday()))))
                                     .field("profile_city", profile.getCity())
                                     .field("profile_country", profile.getCountry())
                                     .field("profile_mobile_phone", profile.getMobilePhone())

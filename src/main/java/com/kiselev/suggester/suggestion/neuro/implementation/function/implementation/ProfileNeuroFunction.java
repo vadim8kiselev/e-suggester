@@ -54,7 +54,7 @@ public class ProfileNeuroFunction implements NeuroFunction<Profile> {
                 .collect(Collectors.toList()));
     }
 
-    private Integer toAge(Date date) {
+    public static Integer toAge(Date date) {
         if (date != null) {
             Calendar calendar = Calendar.getInstance();
             calendar.setTime(date);
@@ -72,7 +72,7 @@ public class ProfileNeuroFunction implements NeuroFunction<Profile> {
         }
     }
 
-    private Date toDate(String date) {
+    public static Date toDate(String date) {
         try {
             return new SimpleDateFormat("dd.MM.yyyy").parse(date);
         } catch (ParseException exception) {
